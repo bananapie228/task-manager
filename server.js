@@ -1,84 +1,109 @@
+require('dotenv').config();
 const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
+
 const app = express();
-const fs = require('fs');
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
-app.use(express.json())
+// middleware
+app.use(cors());
+app.use(express.json()); // Allows to read JSON from requests
+app.use(express.static('public'));
 
-const data_file = './data.json'
+// mongodb connection
+mongoose.connect(process.env.MONGODB_URI)
+    .then(() => console.log('Connected to MongoDB'))
+    .catch((err) => console.error('Connection Error:', err));
+
+// the schema
+const taskSchema = new mongoose.Schema({
+    title: { 
+        type: String, 
+        required: [true, 'Task title is required'], // validation rule
+        trim: true 
+    },
+    description: { 
+        type: String, 
+        required: true 
+    },
+    priority: { 
+        type: String, 
+        enum: ['Low', 'Medium', 'High'], // only these values are allowed
+        default: 'Medium' 
+    },
+    isCompleted: { 
+        type: Boolean, 
+        default: false 
+    }
+}, { timestamps: true }); // automatically adds 'createdAt' and 'updatedAt'
+
+// create the model
+const Task = mongoose.model('Task', taskSchema);
 
 
-const getData = () => JSON.parse(fs.readFileSync(data_file));
-const saveData = (data) => fs.writeFileSync(data_file, JSON.stringify(data, null, 2));
+// CRUD Operations
 
-
-// demo routes
-
-app.get('/', (request, response) => {
-    response.send("Server is runnin")
+// get all tasks
+app.get('/api/tasks', async (req, res) => {
+    try {
+        const tasks = await Task.find().sort({ createdAt: -1 }); // Newest first
+        res.json(tasks);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
 });
-app.get('/hello', (request, response) => {
-    response.json("heelo from server")
+
+// get task by id
+app.get('/api/tasks/:id', async (req, res) => {
+    try {
+        const task = await Task.findById(req.params.id);
+        if (!task) return res.status(404).json({ error: 'Task not found' });
+        res.json(task);
+    } catch (error) {
+        res.status(500).json({ error: 'Invalid ID format' });
+    }
 });
-app.get('/time', (request, response) => {
-    const time = new Date().toLocaleDateString();
-    response.send(time);
+
+// create a new task
+app.post('/api/tasks', async (req, res) => {
+    try {
+        // validation handled by Mongoose Schema
+        const newTask = new Task(req.body);
+        const savedTask = await newTask.save();
+        res.status(201).json(savedTask);
+    } catch (error) {
+        res.status(400).json({ error: error.message }); 
+    }
 });
-app.get('/status', (request, response) => {
-    response.status(200).json({status: "ok"});
+
+// update a task
+app.put('/api/tasks/:id', async (req, res) => {
+    try {
+        const updatedTask = await Task.findByIdAndUpdate(
+            req.params.id, 
+            req.body, 
+            { new: true, runValidators: true } // return the updated version, check rules
+        );
+        if (!updatedTask) return res.status(404).json({ error: 'Task not found' });
+        res.json(updatedTask);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
 });
+
+// delete a task
+app.delete('/api/tasks/:id', async (req, res) => {
+    try {
+        const deletedTask = await Task.findByIdAndDelete(req.params.id);
+        if (!deletedTask) return res.status(404).json({ error: 'Task not found' });
+        res.json({ message: 'Task deleted successfully' });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
 
 app.listen(PORT, () => {
-    console.log(`Server is running at http://localhost:${PORT}`);
+    console.log(`Server running on http://localhost:${PORT}`);
 });
-
-
-// crud operations
-
-
-app.get('/tasks', (request, response) =>{
-    const tasks = getData();
-    response.json(tasks);
-})
-
-app.post('/tasks', (request, response) =>{
-    const tasks = getData();
-    const task = request.body.name;
-    const newTask = {
-        id: tasks.length + 1,
-        name: task,
-        completed: false
-    };
-
-    
-    tasks.push(newTask);
-    saveData(tasks)
-    
-    response.status(201).json(newTask);
-});
-
-app.put('/tasks/:id', (request, response) =>{
-    const tasks = getData()
-    const task = request.body.name;
-    const id = parseInt(request.params.id)
-
-    const index = tasks.findIndex(t => t.id == id)
-
-    if (index !== -1){
-        tasks[index].name = request.body.name
-        saveData(tasks)
-        response.json(task[index])
-    }
-    else{
-        response.status(404).json("not found");
-    }
-});
-
-app.delete('/tasks/:id', (request, response) => {
-    const tasks = getData();  
-    const idToDelete = parseInt(request.params.id);
-    const updatedTasks = tasks.filter(task => task.id !== idToDelete);
-    saveData(updatedTasks);
-    response.json({ success: true });
-});
-

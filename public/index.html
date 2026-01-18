@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Master</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-content">
+            <svg width="24" height="24" viewBox="0 0 24 24"><path fill="#fff" d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+            <span class="logo">Todolist</span>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        
+        <header class="list-header">
+            <h1>Inbox</h1>
+            <span id="date-display"></span>
+        </header>
+
+        <div id="taskList" class="task-list">
+            </div>
+
+        <div class="add-task-container">
+            <button id="showFormBtn" class="add-task-btn">
+                <span class="plus-icon">+</span> Add task
+            </button>
+
+            <form id="taskForm" class="task-form hidden">
+                <div class="input-group">
+                    <input type="text" id="title" placeholder="Task name" required>
+                    <input type="text" id="description" placeholder="Description" class="desc-input">
+                </div>
+                
+                <div class="form-actions">
+                    <select id="priority" class="priority-select">
+                        <option value="Low">Low Priority</option>
+                        <option value="Medium" selected>Medium Priority</option>
+                        <option value="High">High Priority</option>
+                    </select>
+                    <div>
+                        <button type="button" id="cancelBtn" class="cancel-btn">Cancel</button>
+                        <button type="submit" class="submit-btn">Add task</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
