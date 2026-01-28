@@ -149,3 +149,29 @@ h1 { margin: 0 0 5px 0; font-size: 24px; font-weight: 700; }
 .p-High { background-color: #ff0000; }
 .p-Medium { background-color: #ffa500; }
 .p-Low { background-color: #808080; }
+/* Style for the Category Tag */
+.category-tag {
+    display: inline-block;
+    font-size: 10px;
+    background-color: #eee;
+    color: #555;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-top: 4px;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+/* Fix alignment for the task item */
+.task-item {
+    display: flex;
+    justify-content: space-between; /* Push delete button to right */
+    align-items: flex-start;
+}
+
+.task-left {
+    display: flex;
+    align-items: flex-start;
+    flex-grow: 1;
+}

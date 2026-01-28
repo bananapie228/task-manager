@@ -32,23 +32,32 @@
             </button>
 
             <form id="taskForm" class="task-form hidden">
-                <div class="input-group">
-                    <input type="text" id="title" placeholder="Task name" required>
-                    <input type="text" id="description" placeholder="Description" class="desc-input">
-                </div>
-                
-                <div class="form-actions">
-                    <select id="priority" class="priority-select">
-                        <option value="Low">Low Priority</option>
-                        <option value="Medium" selected>Medium Priority</option>
-                        <option value="High">High Priority</option>
-                    </select>
-                    <div>
-                        <button type="button" id="cancelBtn" class="cancel-btn">Cancel</button>
-                        <button type="submit" class="submit-btn">Add task</button>
-                    </div>
-                </div>
-            </form>
+    <div class="input-group">
+        <input type="text" id="title" placeholder="Task name" required>
+        <input type="text" id="description" placeholder="Description" class="desc-input">
+    </div>
+    
+    <div class="category-section" style="margin-top: 10px; display: flex; gap: 10px;">
+        <select id="categorySelect" style="flex-grow: 1; padding: 5px;">
+            <option value="">Select Category</option>
+        </select>
+        <button type="button" onclick="createNewCategory()" style="padding: 5px 10px; background: #eee; border: 1px solid #ddd; cursor: pointer;">
+            + New Cat
+        </button>
+    </div>
+
+    <div class="form-actions">
+        <select id="priority" class="priority-select">
+            <option value="Low">Low Priority</option>
+            <option value="Medium" selected>Medium Priority</option>
+            <option value="High">High Priority</option>
+        </select>
+        <div>
+            <button type="button" id="cancelBtn" class="cancel-btn">Cancel</button>
+            <button type="submit" class="submit-btn">Add task</button>
+        </div>
+    </div>
+</form>
         </div>
 
     </div>
