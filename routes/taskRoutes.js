@@ -1,17 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const taskController = require('../controllers/taskController');
-const { protect, adminOnly } = require('../middleware/authMiddleware');
-router.get('/', taskController.getAllTasks);
+const { protect } = require('../middleware/authMiddleware');
 
-router.post('/', protect, adminOnly, taskController.createTask);
-router.put('/:id', protect, adminOnly, taskController.updateTask);
-router.delete('/:id', protect, adminOnly, taskController.deleteTask);
-
-// Define the paths
-router.get('/', taskController.getAllTasks);
-router.post('/', taskController.createTask);
-router.put('/:id', taskController.updateTask);
-router.delete('/:id', taskController.deleteTask);
+// All task routes require authentication
+router.get('/', protect, taskController.getAllTasks);
+router.post('/', protect, taskController.createTask);
+router.put('/:id', protect, taskController.updateTask);
+router.delete('/:id', protect, taskController.deleteTask);
 
 module.exports = router;

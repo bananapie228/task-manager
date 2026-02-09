@@ -1,28 +1,33 @@
 const mongoose = require('mongoose');
 
 const taskSchema = new mongoose.Schema({
-    title: { 
-        type: String, 
-        required: [true, 'Task title is required'], 
-        trim: true 
+    title: {
+        type: String,
+        required: [true, 'Task title is required'],
+        trim: true
     },
-    description: { 
-        type: String, 
-        required: true 
+    description: {
+        type: String,
+        required: true
     },
-    priority: { 
-        type: String, 
-        enum: ['Low', 'Medium', 'High'], 
-        default: 'Medium' 
+    priority: {
+        type: String,
+        enum: ['Low', 'Medium', 'High'],
+        default: 'Medium'
     },
-    isCompleted: { 
-        type: Boolean, 
-        default: false 
+    isCompleted: {
+        type: Boolean,
+        default: false
     },
     category: {
-        type: mongoose.Schema.Types.ObjectId, 
-        ref: 'Category', 
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Category',
         required: false
+    },
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
     }
 }, { timestamps: true });
 

@@ -1,12 +1,11 @@
-const Task = require('../models/task'); // Import the model we just created
+const Task = require('../models/task');
 
-// GET All Tasks
+// GET All Tasks (for authenticated user)
 exports.getAllTasks = async (req, res) => {
     try {
-        const tasks = await Task.find()
+        const tasks = await Task.find({ userId: req.user.id })
             .sort({ createdAt: -1 })
-            .populate('category'); // 
-        console.log('Tasks with populated categories:', tasks);
+            .populate('category');
         res.json(tasks);
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -16,7 +15,11 @@ exports.getAllTasks = async (req, res) => {
 // POST New Task
 exports.createTask = async (req, res) => {
     try {
-        const newTask = new Task(req.body);
+        const taskData = {
+            ...req.body,
+            userId: req.user.id
+        };
+        const newTask = new Task(taskData);
         const savedTask = await newTask.save();
         res.status(201).json(savedTask);
     } catch (error) {
@@ -27,9 +30,9 @@ exports.createTask = async (req, res) => {
 // PUT Update Task
 exports.updateTask = async (req, res) => {
     try {
-        const updatedTask = await Task.findByIdAndUpdate(
-            req.params.id, 
-            req.body, 
+        const updatedTask = await Task.findOneAndUpdate(
+            { _id: req.params.id, userId: req.user.id },
+            req.body,
             { new: true, runValidators: true }
         );
         if (!updatedTask) return res.status(404).json({ error: 'Task not found' });
@@ -42,7 +45,10 @@ exports.updateTask = async (req, res) => {
 // DELETE Task
 exports.deleteTask = async (req, res) => {
     try {
-        const deletedTask = await Task.findByIdAndDelete(req.params.id);
+        const deletedTask = await Task.findOneAndDelete({
+            _id: req.params.id,
+            userId: req.user.id
+        });
         if (!deletedTask) return res.status(404).json({ error: 'Task not found' });
         res.json({ message: 'Task deleted successfully' });
     } catch (error) {
