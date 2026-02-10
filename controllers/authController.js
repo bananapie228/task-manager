@@ -4,8 +4,8 @@ const jwt = require('jsonwebtoken');
 // Helper to create Token
 const generateToken = (user) => {
     return jwt.sign(
-        { id: user._id, role: user.role }, 
-        process.env.JWT_SECRET || 'secret_key_123', 
+        { id: user._id, role: user.role },
+        process.env.JWT_SECRET || 'secret_key_123',
         { expiresIn: '1h' }
     );
 };
@@ -14,11 +14,11 @@ const generateToken = (user) => {
 exports.register = async (req, res) => {
     try {
         const { email, password, role } = req.body;
-        
+
         // Create user (password is hashed automatically by model)
         const user = new User({ email, password, role });
         await user.save();
-        
+
         res.status(201).json({ message: 'User registered successfully' });
     } catch (error) {
         res.status(400).json({ error: error.message });
@@ -29,7 +29,7 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
     try {
         const { email, password } = req.body;
-        
+
         // 1. Find user
         const user = await User.findOne({ email });
         if (!user) return res.status(401).json({ error: 'Invalid credentials' });
@@ -41,7 +41,7 @@ exports.login = async (req, res) => {
         // 3. Generate Token
         const token = generateToken(user);
         res.json({ token, role: user.role });
-        
+
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

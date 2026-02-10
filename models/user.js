@@ -2,35 +2,35 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
 const userSchema = new mongoose.Schema({
-    email: { 
-        type: String, 
-        required: true, 
+    email: {
+        type: String,
+        required: true,
         unique: true,
         lowercase: true,
         trim: true
     },
-    password: { 
-        type: String, 
-        required: true 
+    password: {
+        type: String,
+        required: true
     },
-    role: { 
-        type: String, 
-        enum: ['user', 'admin'], 
-        default: 'user' 
+    role: {
+        type: String,
+        enum: ['user', 'admin'],
+        default: 'user'
     }
 }, { timestamps: true });
 
 
-userSchema.pre('save', async function(next) {
+userSchema.pre('save', async function (next) {
     // Only hash if password was modified
     if (!this.isModified('password')) return next();
-    
+
     // Hash with cost factor 10
     this.password = await bcrypt.hash(this.password, 10);
 });
 
 // Method to check password  
-userSchema.methods.comparePassword = async function(candidatePassword) {
+userSchema.methods.comparePassword = async function (candidatePassword) {
     return await bcrypt.compare(candidatePassword, this.password);
 };
 

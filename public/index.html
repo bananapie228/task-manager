@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,41 +8,47 @@
     <title>TaskMaster | Dashboard</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="app-container">
         <!-- Sidebar Navigation -->
         <aside class="sidebar">
             <div class="sidebar-logo">TM</div>
-            
+
             <nav class="sidebar-nav">
                 <a href="#" class="nav-item active" data-page="home" title="Home">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-linecap="round" stroke-linejoin="round">
                         <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
                         <polyline points="9 22 9 12 15 12 15 22"></polyline>
                     </svg>
                 </a>
                 <a href="#" class="nav-item" data-page="tasks" title="Tasks">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-linecap="round" stroke-linejoin="round">
                         <path d="M9 11l3 3L22 4"></path>
                         <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
                     </svg>
                 </a>
                 <a href="#" class="nav-item" data-page="categories" title="Categories">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-linecap="round" stroke-linejoin="round">
                         <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
                     </svg>
                 </a>
                 <a href="#" class="nav-item" data-page="profile" title="Profile">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-linecap="round" stroke-linejoin="round">
                         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                         <circle cx="12" cy="7" r="4"></circle>
                     </svg>
                 </a>
             </nav>
-            
+
             <div class="sidebar-bottom">
                 <button class="nav-item" id="logoutBtn" title="Logout">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-linecap="round" stroke-linejoin="round">
                         <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
                         <polyline points="16 17 21 12 16 7"></polyline>
                         <line x1="21" y1="12" x2="9" y2="12"></line>
@@ -50,9 +57,7 @@
             </div>
         </aside>
 
-        <!-- Main Content -->
         <main class="main-content">
-            <!-- Top Bar -->
             <header class="topbar">
                 <div class="topbar-left">
                     <h1 class="project-title">My Tasks</h1>
@@ -69,8 +74,7 @@
                 </div>
             </header>
 
-            <!-- Dashboard Content -->
-            <section class="dashboard">
+            <section id="view-home" class="view-section active">
                 <div class="dashboard-header">
                     <div>
                         <h1>Inbox</h1>
@@ -78,14 +82,12 @@
                     </div>
                 </div>
 
-                <!-- Task List -->
                 <div class="task-list" id="taskList">
-                    <!-- Tasks will be rendered here -->
-                </div>
+                    ] </div>
 
-                <!-- Empty State -->
                 <div class="empty-state hidden" id="emptyState">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-linecap="round" stroke-linejoin="round">
                         <path d="M9 11l3 3L22 4"></path>
                         <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
                     </svg>
@@ -93,12 +95,49 @@
                     <p>Click the + button to add your first task</p>
                 </div>
             </section>
+
+            <section id="view-categories" class="view-section hidden">
+                <div class="dashboard-header">
+                    <h1>Categories</h1>
+                </div>
+
+                <div class="category-manager">
+                    <form id="createCategoryForm" class="category-form">
+                        <input type="text" id="newCatName" placeholder="New Category Name" required
+                            class="form-input compact">
+
+                        <button type="submit" class="btn-primary small">Add</button>
+                    </form>
+                </div>
+
+                <div id="categoriesList" class="categories-grid">
+                    <!-- Categories will be rendered here -->
+                </div>
+            </section>
+
+            <!-- Profile Content -->
+            <section id="view-profile" class="view-section hidden">
+                <div class="dashboard-header">
+                    <h1>My Profile</h1>
+                </div>
+                <div class="profile-card">
+                    <div class="profile-header">
+                        <div class="large-avatar" id="profileAvatar">U</div>
+                        <div>
+                            <h2 id="profileName">User Name</h2>
+                            <p id="profileEmail" class="text-secondary">user@example.com</p>
+                            <span id="profileRole" class="role-badge">User</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </main>
     </div>
 
     <!-- Floating Action Button -->
     <button class="fab" id="fabAddTask" title="Add new task">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="12" y1="5" x2="12" y2="19"></line>
             <line x1="5" y1="12" x2="19" y2="12"></line>
         </svg>
@@ -110,34 +149,39 @@
             <div class="modal-header">
                 <h2>Add New Task</h2>
                 <button class="modal-close" id="closeModal">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <line x1="18" y1="6" x2="6" y2="18"></line>
                         <line x1="6" y1="6" x2="18" y2="18"></line>
                     </svg>
                 </button>
             </div>
-            
+
             <form id="taskForm">
                 <div class="form-group">
                     <label for="taskTitle">Task Title</label>
                     <input type="text" id="taskTitle" class="form-input" placeholder="What needs to be done?" required>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="taskDescription">Description</label>
                     <textarea id="taskDescription" class="form-input" placeholder="Add more details..."></textarea>
                 </div>
-                
+
                 <div class="form-row">
                     <div class="form-group">
                         <label for="taskPriority">Priority</label>
                         <select id="taskPriority" class="form-select">
                             <option value="Low">Low</option>
-                            <option value="Medium" selected>Medium</option>
                             <option value="High">High</option>
                         </select>
                     </div>
-                    
+
+                    <div class="form-group">
+                        <label for="taskDueDate">Due Date</label>
+                        <input type="date" id="taskDueDate" class="form-input">
+                    </div>
+
                     <div class="form-group">
                         <label for="taskCategory">Category</label>
                         <select id="taskCategory" class="form-select">
@@ -145,11 +189,12 @@
                         </select>
                     </div>
                 </div>
-                
+
                 <div class="form-actions">
                     <button type="button" class="btn-ghost" id="cancelTask">Cancel</button>
                     <button type="submit" class="btn-primary">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <line x1="12" y1="5" x2="12" y2="19"></line>
                             <line x1="5" y1="12" x2="19" y2="12"></line>
                         </svg>
@@ -160,6 +205,7 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="script.js?v=2"></script>
 </body>
+
 </html>
