@@ -91,9 +91,9 @@ Returns: `{ "token": "jwt...", "role": "user" }`
 | Method | Endpoint              | Description        | Auth Required    |
 |--------|-----------------------|--------------------|------------------|
 | GET    | `/api/categories`     | Get all categories | No               |
-| POST   | `/api/categories`     | Create category    | Yes (Admin only) |
-| PUT    | `/api/categories/:id` | Update category    | Yes (Admin only) |
-| DELETE | `/api/categories/:id` | Delete category    | Yes (Admin only) |
+| POST   | `/api/categories`     | Create category    | Yes              |
+| PUT    | `/api/categories/:id` | Update category    | Yes              |
+| DELETE | `/api/categories/:id` | Delete category    | Yes              |
 
 ## How to Run Locally
 
