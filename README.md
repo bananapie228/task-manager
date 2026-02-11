@@ -148,8 +148,4 @@ The application is deployed on Render as a single service (backend serves static
 | `MONGODB_URI` | MongoDB connection string      | Yes      |
 
 
-## Deploy Link
 
-```
-https://todobest.onrender.com
-```
