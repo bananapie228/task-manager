@@ -61,11 +61,18 @@ nodejs_web2/
 { "email": "user@example.com", "password": "password123" }
 ```
 
+
+<img width="852" height="409" alt="Screenshot 2026-02-11 at 15 44 44" src="https://github.com/user-attachments/assets/03140239-5364-43b5-93a0-13dc290c7b2e" />
+
+
 **Login** - `POST /api/auth/login`
 ```json
 { "email": "user@example.com", "password": "password123" }
 ```
 Returns: `{ "token": "jwt...", "role": "user" }`
+
+<img width="852" height="439" alt="Screenshot 2026-02-11 at 15 45 17" src="https://github.com/user-attachments/assets/387ccdda-7d18-4563-afd9-f7880aad00ec" />
+
 
 ### Tasks (Auth Required)
 
@@ -85,6 +92,7 @@ Returns: `{ "token": "jwt...", "role": "user" }`
   "category": "categoryObjectId"
 }
 ```
+<img width="840" height="528" alt="Screenshot 2026-02-11 at 15 52 07" src="https://github.com/user-attachments/assets/5d36dcca-6f88-4a6f-a412-ba1a8aae1ef5" />
 
 ### Categories
 
